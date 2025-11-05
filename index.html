@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Absensi Guru 2025</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">Absensi Guru</h2>
+    <p class="text-center text-gray-500 mb-6">Silakan pilih nama Anda dan isi NIP untuk absen.</p>
+
+    <form id="absenForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Nama Guru</label>
+        <select id="nama" required class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500">
+          <option value="">-- Pilih Nama Guru --</option>
+          <option>WAKHID JOKO RUSMANTO, S.Pd.I</option>
+          <option>TRI WAHYUNI RATNANINGRUM, S.Pust</option>
+          <option>DIAN AMALIA, S.Pd.</option>
+          <option>AYU RISKIA SILVIANA, S.Hum</option>
+          <option>ISMI HIDAYATI, S.Pd.I</option>
+          <option>FATIMATUL HIDAYAH, S.Pd</option>
+          <option>SAIDATINA SULASDINI, S.Pd</option>
+          <option>ATRIA DESTI, S.Pd</option>
+          <option>SA'ADATUL FUADAH, S.Pd.I</option>
+          <option>PUTRI MARYANI, S.Pd</option>
+          <option>ITA ULFA SARI, S.Pd</option>
+          <option>MUH ARIF ABDUL AZIS, S.Pd</option>
+          <option>MUHAMMAD TAUFIQ RIDHO MAGHRIZA, S.Ag</option>
+          <option>FARRAH DIBA AZKIA, S.Pd</option>
+          <option>AFINA NOVIANISA</option>
+          <option>ASIH WARDANI, S.Pd.I</option>
+          <option>HAFIDZUL HAQ, S.Pd</option>
+          <option>SITI KHOIRIYAH</option>
+          <option>NUR HIDAYATI</option>
+          <option>MUHAIMIN</option>
+          <option>DWI ANALISA</option>
+          <option>MUTTAQIN</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">NIP (opsional)</label>
+        <input type="text" id="nip" placeholder="Boleh dikosongkan" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition">Kirim Absen</button>
+    </form>
+
+    <p id="pesan" class="text-center mt-4 text-green-600 font-medium hidden">✅ Terima kasih, absensi Anda berhasil!</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('absenForm');
+    const pesan = document.getElementById('pesan');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nama = document.getElementById('nama').value.trim();
+      const nip = document.getElementById('nip').value.trim();
+
+      if (!nama) {
+        alert('Silakan pilih nama terlebih dahulu!');
+        return;
+      }
+
+      // 🔗 Ganti URL berikut dengan URL Web App Google Apps Script kamu
+      const scriptURL = "https://script.google.com/macros/s/AKfycbxxxxx/exec";
+
+      const data = { nama, nip };
+
+      try {
+        await fetch(scriptURL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        form.reset();
+        pesan.classList.remove('hidden');
+        setTimeout(() => pesan.classList.add('hidden'), 4000);
+      } catch (err) {
+        alert("Terjadi kesalahan saat mengirim data. Coba lagi nanti.");
+      }
+    });
+  </script>
+</body>
+</html>
